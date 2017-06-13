@@ -336,3 +336,7 @@ except ImportError:
     pass
 else:
     set_dynamic_settings(globals())
+
+# modify default template
+SEARCH_MODEL_CHOICES = []
+PAGE_MENU_TEMPLATES = ( (1, "Top navigation bar", "pages/menus/dropdown.html"), )
