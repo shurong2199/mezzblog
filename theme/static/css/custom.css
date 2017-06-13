@@ -3,3 +3,7 @@
 body {
     /*background-color: #F5F7F9;*/
 }
+
+.navbar-form.navbar-right:last-child {
+    margin-right: 0;
+}

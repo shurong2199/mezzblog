@@ -16,7 +16,6 @@
 {% endblock %}
 
 {% block main %}
-
 <p>
 {% if results.paginator.count == 0 %}
 {% blocktrans %}
@@ -49,6 +48,8 @@ Showing {{ start }} to {{ end }} of {{ total }} results in {{ search_type }} mat
 {% endwith %}
 {% endfor %}
 </div>
+
+{% block right_panel_wrap %}{% endblock %}
 
 {% pagination_for results %}
 
