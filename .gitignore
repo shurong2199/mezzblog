@@ -2,7 +2,6 @@
 *.json
 .idea
 node_modules
-static
 .DS_Store
 
 !bower.json
