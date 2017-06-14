@@ -283,10 +283,10 @@ NEVERCACHE_KEY = "p5a@pas&2=u3oj1!a_(p&m7okk=cl4km)g-!3!w#%hg+$sua=v"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mezzblog',
-        'USER': 'root',
-        'PASSWORD': 'kavout',
-        'HOST': 'localhost',
+        'NAME': 'kquantplatform',
+        'USER': 'frontend',
+        'PASSWORD': '123qweasdzxc',
+        'HOST': '114.55.179.26',
         'PORT': '3306',
     },
 }
