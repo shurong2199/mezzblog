@@ -5,6 +5,8 @@ import os
 from django import VERSION as DJANGO_VERSION
 from django.utils.translation import ugettext_lazy as _
 
+import pymysql
+pymysql.install_as_MySQLdb()
 
 ######################
 # MEZZANINE SETTINGS #
@@ -90,9 +92,14 @@ USE_MODELTRANSLATION = False
 # MAIN DJANGO SETTINGS #
 ########################
 
+# A boolean that turns on/off debug mode. When set to ``True``, stack traces
+# are displayed for error pages. Should always be set to ``False`` in
+# production. Best set to ``True`` in local_settings.py
+DEBUG = True
+
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ('localhost', '.local')
+ALLOWED_HOSTS = ['*']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -115,11 +122,6 @@ LANGUAGES = (
     ('en', _('English')),
 )
 
-# A boolean that turns on/off debug mode. When set to ``True``, stack traces
-# are displayed for error pages. Should always be set to ``False`` in
-# production. Best set to ``True`` in local_settings.py
-DEBUG = False
-
 # Whether a user's session cookie expires when the Web browser is closed.
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
@@ -134,29 +136,6 @@ AUTHENTICATION_BACKENDS = ("mezzanine.core.auth_backends.MezzanineBackend",)
 # The numeric mode to set newly-uploaded files to. The value should be
 # a mode you'd pass directly to os.chmod.
 FILE_UPLOAD_PERMISSIONS = 0o644
-
-
-#############
-# DATABASES #
-#############
-
-DATABASES = {
-    "default": {
-        # Add "postgresql_psycopg2", "mysql", "sqlite3" or "oracle".
-        "ENGINE": "django.db.backends.",
-        # DB name or path to database file if using sqlite3.
-        "NAME": "",
-        # Not used with sqlite3.
-        "USER": "",
-        # Not used with sqlite3.
-        "PASSWORD": "",
-        # Set to empty string for localhost. Not used with sqlite3.
-        "HOST": "",
-        # Set to empty string for default. Not used with sqlite3.
-        "PORT": "",
-    }
-}
-
 
 #########
 # PATHS #
@@ -297,28 +276,20 @@ OPTIONAL_APPS = (
     PACKAGE_NAME_GRAPPELLI,
 )
 
-##################
-# LOCAL SETTINGS #
-##################
+# Make these unique, and don't share it with anybody.
+SECRET_KEY = "6^0l9z!(y3hn2t4qhe)oo=_569b*-oxs9fy10pq0^eqoi7sbhg"
+NEVERCACHE_KEY = "p5a@pas&2=u3oj1!a_(p&m7okk=cl4km)g-!3!w#%hg+$sua=v"
 
-# Allow any settings to be defined in local_settings.py which should be
-# ignored in your version control system allowing for settings to be
-# defined per machine.
-
-# Instead of doing "from .local_settings import *", we use exec so that
-# local_settings has full access to everything defined in this module.
-# Also force into sys.modules so it's visible to Django's autoreload.
-
-f = os.path.join(PROJECT_APP_PATH, "local_settings.py")
-if os.path.exists(f):
-    import sys
-    import imp
-    module_name = "%s.local_settings" % PROJECT_APP
-    module = imp.new_module(module_name)
-    module.__file__ = f
-    sys.modules[module_name] = module
-    exec(open(f, "rb").read())
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mezzblog',
+        'USER': 'root',
+        'PASSWORD': 'kavout',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    },
+}
 
 ####################
 # DYNAMIC SETTINGS #
@@ -340,3 +311,23 @@ else:
 # modify default template
 SEARCH_MODEL_CHOICES = []
 PAGE_MENU_TEMPLATES = ( (1, "Top navigation bar", "pages/menus/dropdown.html"), )
+
+###################
+# DEPLOY SETTINGS #
+###################
+
+# These settings are used by the default fabfile.py provided.
+# Check fabfile.py for defaults.
+
+# FABRIC = {
+#     "DEPLOY_TOOL": "rsync",  # Deploy with "git", "hg", or "rsync"
+#     "SSH_USER": "",  # VPS SSH username
+#     "HOSTS": [""],  # The IP address of your VPS
+#     "DOMAINS": ALLOWED_HOSTS,  # Edit domains in ALLOWED_HOSTS
+#     "REQUIREMENTS_PATH": "requirements.txt",  # Project's pip requirements
+#     "LOCALE": "en_US.UTF-8",  # Should end with ".UTF-8"
+#     "DB_PASS": "",  # Live database password
+#     "ADMIN_PASS": "",  # Live admin user password
+#     "SECRET_KEY": SECRET_KEY,
+#     "NEVERCACHE_KEY": NEVERCACHE_KEY,
+# }
