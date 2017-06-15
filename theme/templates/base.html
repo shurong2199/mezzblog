@@ -9,7 +9,7 @@
 <meta name="description" content="{% block meta_description %}{% endblock %}">
 <title>
     {% block meta_title %}{% endblock %}
-    {% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}
+    {# {% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}#}
 </title>
 <link rel="shortcut icon" href="{% static "img/favicon.ico" %}">
 
@@ -63,7 +63,7 @@
             </button>
             {% block navbar_title %}
             {% if settings.SITE_TITLE %}<a class="navbar-brand" href="/">{{ settings.SITE_TITLE }}</a>{% endif %}
-            {% if settings.SITE_TAGLINE %}<p class="navbar-text visible-lg">{{ settings.SITE_TAGLINE }}</p>{% endif %}
+            {% if settings.SITE_TAGLINE %}<p class="navbar-text visible-lg visible-md">{{ settings.SITE_TAGLINE }}</p>{% endif %}
             {% endblock%}
         </div>
 
