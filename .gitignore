@@ -75,3 +75,4 @@ db.tenkco.sqlite3
 static/CACHE
 
 .ftpconfig
+runserver.sh
