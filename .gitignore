@@ -76,3 +76,6 @@ static/CACHE
 
 .ftpconfig
 runserver.sh
+uwsgi.ini
+runtime/
+nginx.conf
